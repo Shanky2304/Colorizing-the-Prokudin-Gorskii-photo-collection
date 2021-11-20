@@ -35,22 +35,22 @@ for i=1:6
 	# Align each image using ssd, ncc & corner detection
 
 	# SSD
-	[min_offset_bg, min_offset_br] = im_align1(b, g, r);
-
-	r = circshift(r,[min_offset_br 0]);
-	g = circshift(g,[min_offset_bg 0]);
-
-	# Construct the aligned image
-	bgr(:,:, 2) = g;
-	bgr(:,:, 3) = b;
-	bgr(:,:, 1) = r;
+	[bgr] = im_align1(b, g, r);
 
 	aligned_file_name = sprintf('image%i-ssd.jpg', i);
 	imwrite(bgr, aligned_file_name);
-	clear min_offset_br, min_offset_bg;
+	clear aligned_file_name;
 
 	# NCC
-	[min_offset_bg, min_offset_br] = im_align2(b, g, r);
+	[bgr] = im_align2(b, g, r);
+
+	aligned_file_name = sprintf('image%i-ncc.jpg', i);
+	imwrite(bgr, aligned_file_name);
+	clear aligned_file_name;
+
+	# Harris Corner Detector
+	
+
 
 	# Clear all the user variables except the loop index
 	clear -x i

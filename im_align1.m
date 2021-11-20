@@ -1,4 +1,4 @@
-function [min_offset_bg, min_offset_br] = im_align1(b, g, r)
+function [bgr] = im_align1(b, g, r)
 	min_score_bg = intmax('uint64');
 	min_score_br = intmax('uint64');
 	min_offset_bg = 0;
@@ -25,4 +25,12 @@ function [min_offset_bg, min_offset_br] = im_align1(b, g, r)
 	disp(min_offset_bg);
 	disp(min_score_br);
 	disp(min_offset_br);
+
+	r = circshift(r,[min_offset_br 0]);
+	g = circshift(g,[min_offset_bg 0]);
+
+	# Construct the aligned image
+	bgr(:,:, 2) = g;
+	bgr(:,:, 3) = b;
+	bgr(:,:, 1) = r;
 end
