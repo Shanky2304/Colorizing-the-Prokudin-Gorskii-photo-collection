@@ -37,10 +37,9 @@ function [bgr] = im_align2(b, g, r)
 	    	min_offset_br = v;
 		endif
 	end
-	disp(max_score_bg);
-	disp(min_offset_bg);
-	disp(max_score_br);
-	disp(min_offset_br);
+
+	disp("Shift offset for blue - green with NCC = "), disp(min_offset_bg);
+	disp("Shift offset for blue - red with NCC = "), disp(min_offset_br);
 
 	r = circshift(r,[min_offset_br 0]);
 	g = circshift(g,[min_offset_bg 0]);

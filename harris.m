@@ -21,12 +21,12 @@ function [xb, yb, scores_b, xg, yg, scores_g, xr, yr, scores_r] = harris(b, g, r
     Iyr2 = imfilter(Iyr .^2, g);
     Ixyr = imfilter(Ixr .* Iyr, g);
 
-    H_b = zeros(rows(b), col(b));
-    H_g = zeros(rows(b), col(b));
-    H_r = zeros(rows(b), col(b));
+    H_b = zeros(rows(b), columns(b));
+    H_g = zeros(rows(b), columns(b));
+    H_r = zeros(rows(b), columns(b));
 
-    for y = 6:rows(b)-6     
-        for x = 6:cols(b)-6  
+    for y = 25:rows(b)-25     
+        for x = 25:columns(b)-25  
             
             Ixb2_matrix = Ixb2(y-2:y+2,x-2:x+2);
             Ixg2_matrix = Ixg2(y-2:y+2,x-2:x+2);
@@ -62,7 +62,7 @@ function [xb, yb, scores_b, xg, yg, scores_g, xr, yr, scores_r] = harris(b, g, r
 
             R_b = det(matrix_b) - (k * trace(matrix_b)^2);
 
-            R_b = det(matrix_g) - (k * trace(matrix_g)^2);
+            R_g = det(matrix_g) - (k * trace(matrix_g)^2);
 
             R_r = det(matrix_r) - (k * trace(matrix_r)^2);
             
@@ -91,22 +91,22 @@ function [xb, yb, scores_b, xg, yg, scores_g, xr, yr, scores_r] = harris(b, g, r
 
     for idxb = 1:size(row_b,1)
     
-        rb = row(idxb);
-        cb = col(idxb);
+        rb = row_b(idxb);
+        cb = col_b(idxb);
         scores_b = cat(2, scores_b, H_b(rb,cb));
     end
 
     for idxg = 1:size(row_g,1)
     
-        rg = row(idxg);
-        cg = col(idxg);
+        rg = row_g(idxg);
+        cg = col_g(idxg);
         scores_g = cat(2, scores_g, H_b(rg,cg));
     end
 
     for idxr = 1:size(row_r,1)
     
-        rr = row(idxr);
-        cr = col(idxr);
+        rr = row_r(idxr);
+        cr = col_r(idxr);
         scores_r = cat(2, scores_r, H_b(rr,cr));
     end
 

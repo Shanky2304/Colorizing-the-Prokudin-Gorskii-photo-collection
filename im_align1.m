@@ -21,10 +21,8 @@ function [bgr] = im_align1(b, g, r)
 	    	min_offset_br = v;
 		endif
 	end	
-	disp(min_score_bg);
-	disp(min_offset_bg);
-	disp(min_score_br);
-	disp(min_offset_br);
+	disp("Shift offset for blue - green with SSD = "), disp(min_offset_bg);
+	disp("Shift offset for blue - red with SSD = "), disp(min_offset_br);
 
 	r = circshift(r,[min_offset_br 0]);
 	g = circshift(g,[min_offset_bg 0]);
